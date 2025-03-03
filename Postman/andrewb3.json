@@ -1,0 +1,230 @@
+{
+	"info": {
+		"_postman_id": "7aa85dad-e94f-4afd-888a-e8269a98767d",
+		"name": "andrewb3",
+		"description": "This collection contains tests for the various API requests in the CS314 webapp.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "config",
+			"item": [
+				{
+					"name": "Config Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "1fe15cf4-9d2f-4ac9-add7-0402f0e0c352",
+								"exec": [
+									"pm.test(\"Response is HTTP200 status\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Server-side team name is correct\", () => {",
+									"    const response = pm.response.json();",
+									"    const expectedTeamName = pm.collectionVariables.get(\"TEAM_NAME\");",
+									"    pm.expect(response.serverName).to.eql(expectedTeamName);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "91d8fe76-a422-47e7-a8e6-5ed1925e63a2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestType\": \"config\",\n    \"features\": [\"config\"] \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BASE_URL}}/api/config",
+						"description": "Testing the result of Config Post requests."
+					},
+					"response": []
+				}
+			],
+			"id": "8ae2034b-fdc5-43f2-8098-561d1ecd4af1"
+		},
+		{
+			"name": "Find",
+			"item": [
+				{
+					"name": "Basic",
+					"id": "0b84a507-635a-46bd-9f04-fba45ba81c7d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"requestType\"    : \"find\",\r\n  \"match\"          : \"Andrew\",\r\n  \"limit\"          : 10\r\n}"
+						},
+						"url": "{{BASE_URL}}/api/find"
+					},
+					"response": []
+				},
+				{
+					"name": "Random",
+					"id": "56068810-bbf4-49fc-a146-37b6be7a1fe5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"requestType\": \"find\",\r\n    \"match\": \"\",\r\n    \"limit\": 1\r\n}"
+						},
+						"url": "{{BASE_URL}}/api/find"
+					},
+					"response": []
+				},
+				{
+					"name": "Random Copy",
+					"id": "3cccec89-fccf-4f71-adb3-f5ae9fa68112",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"requestType\": \"find\",\r\n    \"match\": \"\",\r\n    \"limit\": 10\r\n}"
+						},
+						"url": "{{BASE_URL}}/api/find"
+					},
+					"response": []
+				}
+			],
+			"id": "b57c50b4-eb00-443e-8023-907f2a105298"
+		},
+		{
+			"name": "Distances",
+			"item": [
+				{
+					"name": "New Request",
+					"id": "d50a7202-4644-42cb-ada5-1386adeb421b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"requestType\"    : \"distances\",\r\n    \"places\"         : [{\"name\": \"place1\", \"latitude\":  \"0.0\",  \"longitude\": \"0.0\"},\r\n                        {\"name\": \"place2\", \"latitude\":  \"12.3\", \"longitude\": \"-140.5\"},\r\n                        {\"name\": \"place3\", \"latitude\":  \"0\", \"longitude\": \"0\"},\r\n                        {\"name\": \"place4\", \"latitude\":  \"-12.3\", \"longitude\": \"140.5\"},\r\n                        {\"name\": \"place5\", \"latitude\":  \"-12.3\", \"longitude\": \"140.5\"},\r\n                        {\"name\": \"place6\", \"latitude\":  \"-12.3\", \"longitude\": \"-140.5\"}],\r\n    \"earthRadius\"    : 69\r\n  }\r\n"
+						},
+						"url": "{{BASE_URL}}/api/distances"
+					},
+					"response": []
+				},
+				{
+					"name": "New Request Copy",
+					"id": "e83c11af-6a51-45b8-b4a8-30b2b48837f5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"requestType\"    : \"distances\",\r\n  \"places\"         : [{\"name\":\"place1\", \"latitude\":  \"90.0\",  \"longitude\": \"-180.0\"},\r\n                      {\"name\": \"place2\", \"latitude\":  \"-90.0\", \"longitude\": \"180.0\"},\r\n                      {\"name\": \"place3\", \"latitude\":  \"-90.0\", \"longitude\": \"0.0\"}],\r\n  \"earthRadius\"    : 63340.8\r\n}\r\n"
+						},
+						"url": "{{BASE_URL}}/api/distances"
+					},
+					"response": []
+				},
+				{
+					"name": "New Request Copy 2",
+					"id": "a0ed3f46-0ca8-438d-bc14-063d6640e5bb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"requestType\": \"distances\",\r\n    \"places\": [\r\n        {\"name\": \"place 1\", \"latitude\": \"15\", \"longitude\": \"-1\"},\r\n        {\"name\": \"place 2\", \"latitude\": \"90\", \"longitude\": \"180\"}\r\n    ],\r\n    \"earthRadius\": 1000\r\n}\r\n"
+						},
+						"url": "{{BASE_URL}}/api/distances"
+					},
+					"response": []
+				}
+			],
+			"id": "fc8affd2-4974-4f17-97d1-07487564cb4d"
+		},
+		{
+			"name": "tour",
+			"item": [
+				{
+					"name": "New Request",
+					"id": "fce7da21-9ef1-41a2-84e9-ff452c9be6c6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"requestType\"    : \"distances\",\r\n    \"places\"         : [{\"name\": \"place1\", \"latitude\":  \"0.0\",  \"longitude\": \"0.0\"},\r\n                        {\"name\": \"place2\", \"latitude\":  \"12.3\", \"longitude\": \"-140.5\"},\r\n                        {\"name\": \"place3\", \"latitude\":  \"0\", \"longitude\": \"0\"},\r\n                        {\"name\": \"place4\", \"latitude\":  \"-12.3\", \"longitude\": \"140.5\"},\r\n                        {\"name\": \"place5\", \"latitude\":  \"-12.3\", \"longitude\": \"140.5\"},\r\n                        {\"name\": \"place6\", \"latitude\":  \"-12.3\", \"longitude\": \"-140.5\"}],\r\n    \"earthRadius\"    : 69\r\n  }\r\n"
+						},
+						"url": "{{BASE_URL}}/api/distances"
+					},
+					"response": []
+				}
+			],
+			"id": "f6fc8067-4916-4dda-847f-46dff39e954e"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "236cf79c-c3e8-42d1-b2bd-4a602fdbf9d0",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "9e70e8f9-5684-4191-b5e0-6015c8af29d1",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "9b8b1781-086c-4c90-a134-a71b81d9ff22",
+			"key": "BASE_URL",
+			"value": "http://localhost:41328"
+		},
+		{
+			"id": "5fcbf6e9-2951-4816-b1e6-a12a719ac876",
+			"key": "TEAM_NAME",
+			"value": "t28 Trojans"
+		}
+	]
+}

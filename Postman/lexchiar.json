@@ -1,0 +1,237 @@
+{
+	"info": {
+		"_postman_id": "dc7bbd55-484d-47d9-a472-968c57549d66",
+		"name": "lexchiar",
+		"description": "This collection contains tests for the various API requests in the CS314 webapp.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "config",
+			"item": [
+				{
+					"name": "Config Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5e8ad809-1458-4998-9332-740cb05d67de",
+								"exec": [
+									"pm.test(\"Response is HTTP200 status\", () => {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Server-side team name is correct\", () => {",
+									"    const response = pm.response.json();",
+									"    const expectedTeamName = pm.collectionVariables.get(\"TEAM_NAME\");",
+									"    pm.expect(response.serverName).to.eql(expectedTeamName);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"id": "3bd3f869-078f-4b29-837d-19f60485dbcd",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"requestType\": \"config\",\n    \"features\": [\"config\"] \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BASE_URL}}/api/config",
+						"description": "Testing the result of Config Post requests."
+					},
+					"response": []
+				}
+			],
+			"id": "29ca5d73-0250-4e73-b576-e5d4bca594de"
+		},
+		{
+			"name": "distances",
+			"item": [
+				{
+					"name": "Large Radius",
+					"id": "d639e94f-ffba-437f-b316-2caf3d7eada2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"requestType\" : \"distances\",\r\n  \"places\" : [\r\n    {\"name\" : \"place 1\", \"latitude\" : \"0\", \"longitude\" : \"0\"}\r\n    ,{\"name\" : \"place 2\", \"latitude\" : \"90\", \"longitude\" : \"90\"}\r\n    ,{\"name\" : \"place 3\", \"latitude\" : \"-90\", \"longitude\" : \"-90\"}\r\n    ,{\"name\" : \"place 4\", \"latitude\" : \"-90\", \"longitude\" : \"90\"}\r\n    ,{\"name\" : \"place 5\", \"latitude\" : \"90\", \"longitude\" : \"-90\"}   \r\n  ],\r\n  \"earthRadius\" : 1000000000000000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BASE_URL}}/api/distances"
+					},
+					"response": []
+				},
+				{
+					"name": "Medium Radius",
+					"id": "bfd136b2-c9c6-4f10-a47a-7b8c6ae91337",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"requestType\" : \"distances\",\r\n  \"places\" : [\r\n    {\"name\" : \"place 1\", \"latitude\" : \"0\", \"longitude\" : \"0\"}\r\n    ,{\"name\" : \"place 2\", \"latitude\" : \"90\", \"longitude\" : \"90\"}\r\n    ,{\"name\" : \"place 3\", \"latitude\" : \"-90\", \"longitude\" : \"-90\"}\r\n    ,{\"name\" : \"place 4\", \"latitude\" : \"-90\", \"longitude\" : \"90\"}\r\n    ,{\"name\" : \"place 5\", \"latitude\" : \"90\", \"longitude\" : \"-90\"}   \r\n  ],\r\n  \"earthRadius\" : 10000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BASE_URL}}/api/distances"
+					},
+					"response": []
+				},
+				{
+					"name": "Small Radius",
+					"id": "b1c4e5cc-bc04-4b1e-a762-6940876ee5b7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"requestType\" : \"distances\",\r\n  \"places\" : [\r\n    {\"name\" : \"place 1\", \"latitude\" : \"0\", \"longitude\" : \"0\"}\r\n    ,{\"name\" : \"place 2\", \"latitude\" : \"90\", \"longitude\" : \"90\"}\r\n    ,{\"name\" : \"place 3\", \"latitude\" : \"-90\", \"longitude\" : \"-90\"}\r\n    ,{\"name\" : \"place 4\", \"latitude\" : \"-90\", \"longitude\" : \"90\"}\r\n    ,{\"name\" : \"place 5\", \"latitude\" : \"90\", \"longitude\" : \"-90\"}   \r\n  ],\r\n  \"earthRadius\" : 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BASE_URL}}/api/distances"
+					},
+					"response": []
+				}
+			],
+			"id": "9681d3ac-d352-428c-9bfe-a815c1decc53"
+		},
+		{
+			"name": "find",
+			"item": [
+				{
+					"name": "Basic Find Request",
+					"id": "84ad5b99-6f53-46f3-a177-7e2b8a2205c7",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"requestType\": \"find\",\r\n    \"match\": \"alex\",\r\n    \"limit\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BASE_URL}}/api/find"
+					},
+					"response": []
+				},
+				{
+					"name": "Random Find Request",
+					"id": "5ef0c5b5-4a9f-4978-9223-d74a63893ca4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"requestType\": \"find\",\r\n    \"match\": \"\",\r\n    \"limit\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BASE_URL}}/api/find"
+					},
+					"response": []
+				},
+				{
+					"name": "Large Limit Find Request",
+					"id": "45bcda4e-b871-4b3c-9c3f-1b3026b138e5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"requestType\": \"find\",\r\n    \"match\": \"\",\r\n    \"limit\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BASE_URL}}/api/find"
+					},
+					"response": []
+				}
+			],
+			"id": "11b67838-6928-4e49-856d-7ea4b4a22d54"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "9785598e-9133-4a7d-af58-2515a513e89c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "e498fe02-0145-4afd-b12f-424218f48717",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "a38bbe81-2f26-4460-b105-00e541350e70",
+			"key": "BASE_URL",
+			"value": "http://localhost:41328"
+		},
+		{
+			"id": "95e43be3-3bc1-467e-b4be-52a8d0e40e90",
+			"key": "TEAM_NAME",
+			"value": "t28 Trojans"
+		}
+	]
+}
